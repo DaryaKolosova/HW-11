@@ -1,53 +1,73 @@
 import java.time.LocalDate;
-
 public class Main {
+
+    //Задание 1
+    private static boolean isLeapYear(int year) {
+        return year > 1584 && (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0));
+    }
+
+    //Задание 2
+    public static String checkOSVersion(char clientOS, int yearOfIssue) {
+        int currentYear = LocalDate.now().getYear();
+        switch (clientOS) {
+            case '0': // iOS
+                if (yearOfIssue < currentYear) {
+                    return "Установите облегченную версию приложения для iOS по ссылке";
+                } else {
+                    return "Установите версию приложения для iOS по ссылке";
+                }
+            case '1': // Android
+                if (yearOfIssue < currentYear) {
+                    return "Установите облегченную версию приложения для Android по ссылке";
+                } else {
+                    return "Установите версию приложения для Android по ссылке";
+                }
+            default:
+                return "Неизвестная операционная система.";
+        }
+    }
+
+    //Задание 3
+    public static int calculateDeliveryDays(int deliveryDistance) {
+        int delivery = 1;
+        if (deliveryDistance < 20) {
+            return delivery;
+        } else if (deliveryDistance >= 20 && deliveryDistance < 60) {
+            return delivery + 1;
+        } else if (deliveryDistance >= 60 && deliveryDistance < 100) {
+            return delivery + 2;
+        } else if (deliveryDistance >= 100) {
+            return 0;
+        }
+        return 0;
+    }
+
+
     public static void main(String[] args) {
-        leapYear(2024);
-        printDevice(0);
-        delivery(80);
-    }
-    public static void leapYear(int year) {
-        System.out.println("Задача 1");
-        if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
-            System.out.println(year + " Год является высокосным!");
+        System.out.println("Hello world!");
+
+        System.out.println("Задание 1");
+        int year = 2021;
+        if (isLeapYear(year)) {
+            System.out.println(year + " год является високосным");
         } else {
-            System.out.println("Этот год не являеться высокосным");
+            System.out.println(year + " год не является високосным");
         }
-    }
 
-    public static void printDevice(int clientOs) {
-        System.out.println("Задача 2");
-        int versionOs = LocalDate.now().getYear();
-        if (clientOs == 1 && versionOs <= 2015) {
-            System.out.println("Установите облегченную версию приложения для Android по ссылке");
-        } else if (clientOs == 1 && versionOs >= 2015) {
-            System.out.println("Установите программу для Android по ссылке");
-        }
-        if (clientOs == 0 && versionOs >= 2015) {
-            System.out.println("Установите облегченную версию приложения для IOS по ссылке");
-        } else if (clientOs == 0 && versionOs <= 2105)
-            System.out.println("Установите программу для IOS по ссылке");
+        System.out.println("Задание 2");
 
-    }
+        int currentYear = LocalDate.now().getYear();
+        char clientOS = '1';
+        int yearOfIssue = 2023;
+        System.out.println(checkOSVersion(clientOS, yearOfIssue));
 
-    private static int delivery(int distance) {
-        System.out.println("Задача 3");
-        if (distance > 100) {
-            System.out.println("Доставка невозможна");
-            return -1;
-        }
-        int deliveryDey = 1;
-        if (distance <= 20) {
-            System.out.println("Доставка составит " + deliveryDey + " день");
-        } else if (distance > 20 && distance <= 60) {
-            deliveryDey++;
-            System.out.println("Доставка составит " + deliveryDey + " дней");
-        } else if (distance > 60 && distance < 100) {
-            deliveryDey = deliveryDey + 2;
-            System.out.println("Доставка составит " + deliveryDey + " дней");
+        System.out.println("Задание 3");
+        int deliveryDistance = 95;
+        int days = calculateDeliveryDays(deliveryDistance);
+        if (days == 0) {
+            System.out.println("Доставки нет");
         } else {
-            System.out.println("Доставка невозможна");
+            System.out.println("Потребуется дней: " + days);
         }
-        return deliveryDey;
     }
 }
